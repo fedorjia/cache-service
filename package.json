@@ -1,0 +1,23 @@
+{
+  "name": "cache-service",
+  "version": "1.0.5",
+  "description": "cache service",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fedorjia/cache-service.git"
+  },
+  "author": {
+    "name": "Fedor Jia"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "dependencies": {
+    "redis": "^2.8.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-validator": "^5.3.0",
+    "helmet": "^3.9.0"
+  },
+  "devDependencies": {}
+}
