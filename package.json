@@ -9,6 +9,9 @@
   "author": {
     "name": "Fedor Jia"
   },
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
   "license": "MIT",
   "main": "src/index.js",
   "dependencies": {

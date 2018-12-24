@@ -8,6 +8,7 @@ const util = require('util')
 const setting = require('./setting')
 const router = require('./controller')
 const { connect } = require('./helper/redis')
+const authorization = require('./middleware/auth')
 
 const app = express()
 
@@ -18,7 +19,10 @@ app.use(expressValidator()) // validator
 app.use(helmet()) // secure Express apps
 
 // response
-app.use(responseMiddleware())
+app.use(responseMiddleware)
+
+// authorization
+app.use(authorization)
 
 // router
 app.use(router)
