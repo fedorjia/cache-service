@@ -2,10 +2,12 @@ const express = require('express')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+const { responseMiddleware, setupExceptionMiddlewares } = require('node-response-middleware')
 const cors = require('cors')
 const util = require('util')
 const setting = require('./setting')
 const router = require('./controller')
+const { connect } = require('./helper/redis')
 
 const app = express()
 
@@ -16,29 +18,13 @@ app.use(expressValidator()) // validator
 app.use(helmet()) // secure Express apps
 
 // response
-app.use(responseMiddleware({
-	isUseLog: true,
-	logUrl: `${setting.url.proxy}/log/action`,
-	extra: {
-		app: 'handapp-api',
-		created_type: 2
-	}
-}))
+app.use(responseMiddleware())
 
 // router
 app.use(router)
 
-// const { promisify } = require('util')
-const { connect } = require('./helper/redis')
-
-
-exports.authSaveUser = async function(user) {
-	user.token = aes.encode(`${user.id},${md5(user.id + user.password)}`, defaultKey)
-
-	const setAsync = promisify(global.redisClient.set).bind(global.redisClient)
-	await setAsync(`account:${user.id}`, JSON.stringify(user))
-	return user
-}
+// setup exception handler middleware
+setupExceptionMiddlewares(app)
 
 // redis connection
 connect().then(() => {
